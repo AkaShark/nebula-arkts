@@ -6,6 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "libnebula_arkts.so": "file:./src/main/cpp/types/libnebula_arkts"
+    "libnebula_arkts.so": "file:./src/main/cpp/types/libnebula_arkts",
+    "@ohos/thrift": "^2.0.0"
   }
 }

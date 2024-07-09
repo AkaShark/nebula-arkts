@@ -10,6 +10,8 @@ struct Index {
             // click to connect NebulaGraph
 
           })
+          .margin({bottom: 20})
+
         Button("disconnect")
           .onClick(()=> {
             // click to disconnect NebulaGraph
