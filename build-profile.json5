@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/sharker/.ohos/config/default_nebula_arkts_demo_2WY0dOy24T5tdz_xmDEvH-QrZXmFhGrqND8eMioA_cY=.cer",
+          "storePassword": "0000001A2A7A825C0F082AC39507ECC942C0165CAF3DCEB90158AEE5FA22A048944E5A944E2E21E9EC3D",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A982563AB6857B3D1C86F72E15D8AB2EECED915613D06E956A4C843748EBA6442989493EA78E1",
+          "profile": "/Users/sharker/.ohos/config/default_nebula_arkts_demo_2WY0dOy24T5tdz_xmDEvH-QrZXmFhGrqND8eMioA_cY=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/sharker/.ohos/config/default_nebula_arkts_demo_2WY0dOy24T5tdz_xmDEvH-QrZXmFhGrqND8eMioA_cY=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",

@@ -3,9 +3,8 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
-if (typeof Int64 === 'undefined' && typeof require === 'function') {
-  var Int64 = require('node-int64');
-}
+
+import {Thrift} from '@ohos/thrift'
 
 
 NullType = {
@@ -2640,4 +2639,6 @@ LogEntry.prototype.write = function(output) {
 };
 
 version = '3.0.0';
-export {};
+export {
+  DataSet,
+};

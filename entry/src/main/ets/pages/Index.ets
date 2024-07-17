@@ -1,3 +1,5 @@
+import { Client } from 'nebula_arkts'
+
 @Entry
 @Component
 struct Index {
@@ -15,7 +17,8 @@ struct Index {
         Button("disconnect")
           .onClick(()=> {
             // click to disconnect NebulaGraph
-
+            let cn = new Client()
+            cn.connect()
           })
       }
       .width('100%')
