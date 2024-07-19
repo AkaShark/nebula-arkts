@@ -9,8 +9,7 @@ import {
   DataSet
 } from "./common_types"
 
-
-ProfilingStats = function(args) {
+function ProfilingStats(args) {
   this.rows = null;
   this.exec_duration_in_us = null;
   this.total_duration_in_us = null;
@@ -35,7 +34,11 @@ ProfilingStats = function(args) {
       this.other_stats = Thrift.copyMap(args.other_stats, [null]);
     }
   }
-};
+}
+
+// ProfilingStats = function(args) {
+//
+// };
 ProfilingStats.prototype = {};
 ProfilingStats.prototype.read = function(input) {
   input.readStructBegin();
@@ -134,7 +137,7 @@ ProfilingStats.prototype.write = function(output) {
   return;
 };
 
-PlanNodeBranchInfo = function(args) {
+function PlanNodeBranchInfo(args) {
   this.is_do_branch = null;
   this.condition_node_id = null;
   if (args) {
@@ -149,7 +152,11 @@ PlanNodeBranchInfo = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field condition_node_id is unset!');
     }
   }
-};
+}
+
+// PlanNodeBranchInfo = function(args) {
+//
+// };
 PlanNodeBranchInfo.prototype = {};
 PlanNodeBranchInfo.prototype.read = function(input) {
   input.readStructBegin();
@@ -201,7 +208,7 @@ PlanNodeBranchInfo.prototype.write = function(output) {
   return;
 };
 
-Pair = function(args) {
+function Pair(args) {
   this.key = null;
   this.value = null;
   if (args) {
@@ -216,7 +223,11 @@ Pair = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field value is unset!');
     }
   }
-};
+}
+
+// Pair = function(args) {
+//
+// };
 Pair.prototype = {};
 Pair.prototype.read = function(input) {
   input.readStructBegin();
@@ -268,7 +279,7 @@ Pair.prototype.write = function(output) {
   return;
 };
 
-PlanNodeDescription = function(args) {
+function PlanNodeDescription(args) {
   this.name = null;
   this.id = null;
   this.output_var = null;
@@ -305,7 +316,11 @@ PlanNodeDescription = function(args) {
       this.dependencies = Thrift.copyList(args.dependencies, [null]);
     }
   }
-};
+}
+//
+// PlanNodeDescription = function(args) {
+//
+// };
 PlanNodeDescription.prototype = {};
 PlanNodeDescription.prototype.read = function(input) {
   input.readStructBegin();
@@ -465,7 +480,7 @@ PlanNodeDescription.prototype.write = function(output) {
   return;
 };
 
-PlanDescription = function(args) {
+function PlanDescription(args) {
   this.plan_node_descs = null;
   this.node_index_map = null;
   this.format = null;
@@ -492,7 +507,11 @@ PlanDescription = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field optimize_time_in_us is unset!');
     }
   }
-};
+}
+
+// PlanDescription = function(args) {
+//
+// };
 PlanDescription.prototype = {};
 PlanDescription.prototype.read = function(input) {
   input.readStructBegin();
@@ -607,7 +626,7 @@ PlanDescription.prototype.write = function(output) {
   return;
 };
 
-ExecutionResponse = function(args) {
+function ExecutionResponse(args) {
   this.error_code = null;
   this.latency_in_us = null;
   this.data = null;
@@ -642,7 +661,13 @@ ExecutionResponse = function(args) {
       this.comment = args.comment;
     }
   }
-};
+}
+
+// ExecutionResponse = function(args) {
+//
+// };
+
+
 ExecutionResponse.prototype = {};
 ExecutionResponse.prototype.read = function(input) {
   input.readStructBegin();
@@ -756,7 +781,7 @@ ExecutionResponse.prototype.write = function(output) {
   return;
 };
 
-AuthResponse = function(args) {
+function AuthResponse(args) {
   this.error_code = null;
   this.error_msg = null;
   this.session_id = null;
@@ -781,7 +806,11 @@ AuthResponse = function(args) {
       this.time_zone_name = args.time_zone_name;
     }
   }
-};
+}
+
+// AuthResponse = function(args) {
+//
+// };
 AuthResponse.prototype = {};
 AuthResponse.prototype.read = function(input) {
   input.readStructBegin();
@@ -869,7 +898,7 @@ AuthResponse.prototype.write = function(output) {
   return;
 };
 
-VerifyClientVersionResp = function(args) {
+function VerifyClientVersionResp(args) {
   this.error_code = null;
   this.error_msg = null;
   if (args) {
@@ -882,7 +911,11 @@ VerifyClientVersionResp = function(args) {
       this.error_msg = args.error_msg;
     }
   }
-};
+}
+
+// VerifyClientVersionResp = function(args) {
+//
+// };
 VerifyClientVersionResp.prototype = {};
 VerifyClientVersionResp.prototype.read = function(input) {
   input.readStructBegin();
@@ -934,7 +967,7 @@ VerifyClientVersionResp.prototype.write = function(output) {
   return;
 };
 
-VerifyClientVersionReq = function(args) {
+function VerifyClientVersionReq(args) {
   this.version = '3.0.0';
   if (args) {
     if (args.version !== undefined && args.version !== null) {
@@ -943,7 +976,11 @@ VerifyClientVersionReq = function(args) {
       throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.UNKNOWN, 'Required field version is unset!');
     }
   }
-};
+}
+//
+// VerifyClientVersionReq = function(args) {
+//
+// };
 VerifyClientVersionReq.prototype = {};
 VerifyClientVersionReq.prototype.read = function(input) {
   input.readStructBegin();

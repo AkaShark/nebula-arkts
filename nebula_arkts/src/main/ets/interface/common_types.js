@@ -7,7 +7,7 @@
 import {Thrift} from '@ohos/thrift'
 
 
-NullType = {
+const NullType = {
   '__NULL__' : 0,
   'NaN' : 1,
   'BAD_DATA' : 2,
@@ -17,7 +17,7 @@ NullType = {
   'DIV_BY_ZERO' : 6,
   'OUT_OF_RANGE' : 7
 };
-PropertyType = {
+const PropertyType = {
   'UNKNOWN' : 0,
   'BOOL' : 1,
   'INT64' : 2,
@@ -36,7 +36,7 @@ PropertyType = {
   'TIME' : 26,
   'GEOGRAPHY' : 31
 };
-ErrorCode = {
+const ErrorCode = {
   'SUCCEEDED' : 0,
   'E_DISCONNECTED' : -1,
   'E_FAIL_TO_CONNECT' : -2,
@@ -186,7 +186,8 @@ ErrorCode = {
   'E_LEADER_LEASE_FAILED' : -3531,
   'E_UNKNOWN' : -8000
 };
-SchemaID = function(args) {
+
+function SchemaID(arg) {
   this.tag_id = null;
   this.edge_type = null;
   if (args) {
@@ -197,7 +198,11 @@ SchemaID = function(args) {
       this.edge_type = args.edge_type;
     }
   }
-};
+}
+
+// SchemaID = function(args) {
+//
+// };
 SchemaID.prototype = {};
 SchemaID.prototype.read = function(input) {
   input.readStructBegin();
@@ -249,7 +254,7 @@ SchemaID.prototype.write = function(output) {
   return;
 };
 
-Date = function(args) {
+function Date(args) {
   this.year = null;
   this.month = null;
   this.day = null;
@@ -264,7 +269,10 @@ Date = function(args) {
       this.day = args.day;
     }
   }
-};
+}
+// Date = function(args) {
+//
+// };
 Date.prototype = {};
 Date.prototype.read = function(input) {
   input.readStructBegin();
@@ -328,7 +336,7 @@ Date.prototype.write = function(output) {
   return;
 };
 
-Time = function(args) {
+function Time(args) {
   this.hour = null;
   this.minute = null;
   this.sec = null;
@@ -347,7 +355,11 @@ Time = function(args) {
       this.microsec = args.microsec;
     }
   }
-};
+}
+
+// Time = function(args) {
+//
+// };
 Time.prototype = {};
 Time.prototype.read = function(input) {
   input.readStructBegin();
@@ -423,7 +435,7 @@ Time.prototype.write = function(output) {
   return;
 };
 
-DateTime = function(args) {
+function DateTime(args) {
   this.year = null;
   this.month = null;
   this.day = null;
@@ -454,7 +466,10 @@ DateTime = function(args) {
       this.microsec = args.microsec;
     }
   }
-};
+}
+// DateTime = function(args) {
+//
+// };
 DateTime.prototype = {};
 DateTime.prototype.read = function(input) {
   input.readStructBegin();
@@ -566,7 +581,7 @@ DateTime.prototype.write = function(output) {
   return;
 };
 
-Value = function(args) {
+function Value(args) {
   this.nVal = null;
   this.bVal = null;
   this.iVal = null;
@@ -637,7 +652,11 @@ Value = function(args) {
       this.duVal = new Duration(args.duVal);
     }
   }
-};
+}
+
+// Value = function(args) {
+//
+// };
 Value.prototype = {};
 Value.prototype.read = function(input) {
   input.readStructBegin();
@@ -881,14 +900,18 @@ Value.prototype.write = function(output) {
   return;
 };
 
-NList = function(args) {
+function NList(args) {
   this.values = null;
   if (args) {
     if (args.values !== undefined && args.values !== null) {
       this.values = Thrift.copyList(args.values, [Value]);
     }
   }
-};
+}
+
+// NList = function(args) {
+//
+// };
 NList.prototype = {};
 NList.prototype.read = function(input) {
   input.readStructBegin();
@@ -947,14 +970,23 @@ NList.prototype.write = function(output) {
   return;
 };
 
-NMap = function(args) {
-  this.kvs = null;
-  if (args) {
-    if (args.kvs !== undefined && args.kvs !== null) {
-      this.kvs = Thrift.copyMap(args.kvs, [Value]);
+
+function NMap(args) {
+    this.kvs = null;
+    if (args) {
+      if (args.kvs !== undefined && args.kvs !== null) {
+        this.kvs = Thrift.copyMap(args.kvs, [Value]);
+      }
     }
-  }
-};
+}
+// NMap = function(args) {
+//   this.kvs = null;
+//   if (args) {
+//     if (args.kvs !== undefined && args.kvs !== null) {
+//       this.kvs = Thrift.copyMap(args.kvs, [Value]);
+//     }
+//   }
+// };
 NMap.prototype = {};
 NMap.prototype.read = function(input) {
   input.readStructBegin();
@@ -1021,14 +1053,18 @@ NMap.prototype.write = function(output) {
   return;
 };
 
-NSet = function(args) {
+function NSet(args) {
   this.values = null;
   if (args) {
     if (args.values !== undefined && args.values !== null) {
       this.values = Thrift.copyList(args.values, [Value]);
     }
   }
-};
+}
+
+// NSet = function(args) {
+//
+// };
 NSet.prototype = {};
 NSet.prototype.read = function(input) {
   input.readStructBegin();
@@ -1087,14 +1123,18 @@ NSet.prototype.write = function(output) {
   return;
 };
 
-Row = function(args) {
+function Row(args) {
   this.values = null;
   if (args) {
     if (args.values !== undefined && args.values !== null) {
       this.values = Thrift.copyList(args.values, [Value]);
     }
   }
-};
+}
+
+// Row = function(args) {
+//
+// };
 Row.prototype = {};
 Row.prototype.read = function(input) {
   input.readStructBegin();
@@ -1153,7 +1193,7 @@ Row.prototype.write = function(output) {
   return;
 };
 
-DataSet = function(args) {
+function DataSet(args) {
   this.column_names = null;
   this.rows = null;
   if (args) {
@@ -1164,7 +1204,11 @@ DataSet = function(args) {
       this.rows = Thrift.copyList(args.rows, [Row]);
     }
   }
-};
+}
+
+// DataSet = function(args) {
+//
+// };
 DataSet.prototype = {};
 DataSet.prototype.read = function(input) {
   input.readStructBegin();
@@ -1247,7 +1291,7 @@ DataSet.prototype.write = function(output) {
   return;
 };
 
-Coordinate = function(args) {
+function Coordinate(args) {
   this.x = null;
   this.y = null;
   if (args) {
@@ -1258,7 +1302,11 @@ Coordinate = function(args) {
       this.y = args.y;
     }
   }
-};
+}
+
+// Coordinate = function(args) {
+//
+// };
 Coordinate.prototype = {};
 Coordinate.prototype.read = function(input) {
   input.readStructBegin();
@@ -1310,14 +1358,18 @@ Coordinate.prototype.write = function(output) {
   return;
 };
 
-Point = function(args) {
+function Point(args) {
   this.coord = null;
   if (args) {
     if (args.coord !== undefined && args.coord !== null) {
       this.coord = new Coordinate(args.coord);
     }
   }
-};
+}
+
+// Point = function(args) {
+//
+// };
 Point.prototype = {};
 Point.prototype.read = function(input) {
   input.readStructBegin();
@@ -1361,14 +1413,18 @@ Point.prototype.write = function(output) {
   return;
 };
 
-LineString = function(args) {
+function LineString() {
   this.coordList = null;
   if (args) {
     if (args.coordList !== undefined && args.coordList !== null) {
       this.coordList = Thrift.copyList(args.coordList, [Coordinate]);
     }
   }
-};
+}
+//
+// LineString = function(args) {
+//
+// };
 LineString.prototype = {};
 LineString.prototype.read = function(input) {
   input.readStructBegin();
@@ -1427,14 +1483,18 @@ LineString.prototype.write = function(output) {
   return;
 };
 
-Polygon = function(args) {
+function Polygon(args) {
   this.coordListList = null;
   if (args) {
     if (args.coordListList !== undefined && args.coordListList !== null) {
       this.coordListList = Thrift.copyList(args.coordListList, [Thrift.copyList, Coordinate]);
     }
   }
-};
+}
+
+// Polygon = function(args) {
+//
+// };
 Polygon.prototype = {};
 Polygon.prototype.read = function(input) {
   input.readStructBegin();
@@ -1508,7 +1568,7 @@ Polygon.prototype.write = function(output) {
   return;
 };
 
-Geography = function(args) {
+function Geography(args) {
   this.ptVal = null;
   this.lsVal = null;
   this.pgVal = null;
@@ -1523,7 +1583,11 @@ Geography = function(args) {
       this.pgVal = new Polygon(args.pgVal);
     }
   }
-};
+}
+
+// Geography = function(args) {
+//
+// };
 Geography.prototype = {};
 Geography.prototype.read = function(input) {
   input.readStructBegin();
@@ -1590,7 +1654,7 @@ Geography.prototype.write = function(output) {
   return;
 };
 
-Tag = function(args) {
+function Tag(args) {
   this.name = null;
   this.props = null;
   if (args) {
@@ -1601,7 +1665,11 @@ Tag = function(args) {
       this.props = Thrift.copyMap(args.props, [Value]);
     }
   }
-};
+}
+
+// Tag = function(args) {
+//
+// };
 Tag.prototype = {};
 Tag.prototype.read = function(input) {
   input.readStructBegin();
@@ -1677,7 +1745,7 @@ Tag.prototype.write = function(output) {
   return;
 };
 
-Vertex = function(args) {
+function Vertex(args) {
   this.vid = null;
   this.tags = null;
   if (args) {
@@ -1688,7 +1756,11 @@ Vertex = function(args) {
       this.tags = Thrift.copyList(args.tags, [Tag]);
     }
   }
-};
+}
+
+// Vertex = function(args) {
+//
+// };
 Vertex.prototype = {};
 Vertex.prototype.read = function(input) {
   input.readStructBegin();
@@ -1757,7 +1829,7 @@ Vertex.prototype.write = function(output) {
   return;
 };
 
-Edge = function(args) {
+function Edge(args) {
   this.src = null;
   this.dst = null;
   this.type = null;
@@ -1784,7 +1856,11 @@ Edge = function(args) {
       this.props = Thrift.copyMap(args.props, [Value]);
     }
   }
-};
+}
+
+// Edge = function(args) {
+//
+// };
 Edge.prototype = {};
 Edge.prototype.read = function(input) {
   input.readStructBegin();
@@ -1910,7 +1986,7 @@ Edge.prototype.write = function(output) {
   return;
 };
 
-Step = function(args) {
+function Step(args) {
   this.dst = null;
   this.type = null;
   this.name = null;
@@ -1933,7 +2009,11 @@ Step = function(args) {
       this.props = Thrift.copyMap(args.props, [Value]);
     }
   }
-};
+}
+
+// Step = function(args) {
+//
+// };
 Step.prototype = {};
 Step.prototype.read = function(input) {
   input.readStructBegin();
@@ -2046,7 +2126,7 @@ Step.prototype.write = function(output) {
   return;
 };
 
-Path = function(args) {
+function Path(args) {
   this.src = null;
   this.steps = null;
   if (args) {
@@ -2057,7 +2137,11 @@ Path = function(args) {
       this.steps = Thrift.copyList(args.steps, [Step]);
     }
   }
-};
+}
+
+// Path = function(args) {
+//
+// };
 Path.prototype = {};
 Path.prototype.read = function(input) {
   input.readStructBegin();
@@ -2126,7 +2210,7 @@ Path.prototype.write = function(output) {
   return;
 };
 
-HostAddr = function(args) {
+function HostAddr(args) {
   this.host = null;
   this.port = null;
   if (args) {
@@ -2137,7 +2221,11 @@ HostAddr = function(args) {
       this.port = args.port;
     }
   }
-};
+}
+
+// HostAddr = function(args) {
+//
+// };
 HostAddr.prototype = {};
 HostAddr.prototype.read = function(input) {
   input.readStructBegin();
@@ -2189,7 +2277,7 @@ HostAddr.prototype.write = function(output) {
   return;
 };
 
-KeyValue = function(args) {
+function KeyValue(args) {
   this.key = null;
   this.value = null;
   if (args) {
@@ -2200,7 +2288,11 @@ KeyValue = function(args) {
       this.value = args.value;
     }
   }
-};
+}
+
+// KeyValue = function(args) {
+//
+// };
 KeyValue.prototype = {};
 KeyValue.prototype.read = function(input) {
   input.readStructBegin();
@@ -2252,7 +2344,7 @@ KeyValue.prototype.write = function(output) {
   return;
 };
 
-Duration = function(args) {
+function Duration(args) {
   this.seconds = null;
   this.microseconds = null;
   this.months = null;
@@ -2267,7 +2359,11 @@ Duration = function(args) {
       this.months = args.months;
     }
   }
-};
+}
+
+// Duration = function(args) {
+//
+// };
 Duration.prototype = {};
 Duration.prototype.read = function(input) {
   input.readStructBegin();
@@ -2331,7 +2427,7 @@ Duration.prototype.write = function(output) {
   return;
 };
 
-LogInfo = function(args) {
+function LogInfo(args) {
   this.log_id = null;
   this.term_id = null;
   if (args) {
@@ -2342,7 +2438,11 @@ LogInfo = function(args) {
       this.term_id = args.term_id;
     }
   }
-};
+}
+
+// LogInfo = function(args) {
+//
+// };
 LogInfo.prototype = {};
 LogInfo.prototype.read = function(input) {
   input.readStructBegin();
@@ -2394,7 +2494,7 @@ LogInfo.prototype.write = function(output) {
   return;
 };
 
-DirInfo = function(args) {
+function DirInfo(args) {
   this.root = null;
   this.data = null;
   if (args) {
@@ -2405,7 +2505,11 @@ DirInfo = function(args) {
       this.data = Thrift.copyList(args.data, [null]);
     }
   }
-};
+}
+
+// DirInfo = function(args) {
+//
+// };
 DirInfo.prototype = {};
 DirInfo.prototype.read = function(input) {
   input.readStructBegin();
@@ -2472,7 +2576,7 @@ DirInfo.prototype.write = function(output) {
   return;
 };
 
-CheckpointInfo = function(args) {
+function CheckpointInfo(args) {
   this.space_id = null;
   this.parts = null;
   this.path = null;
@@ -2487,7 +2591,11 @@ CheckpointInfo = function(args) {
       this.path = args.path;
     }
   }
-};
+}
+
+// CheckpointInfo = function(args) {
+//
+// };
 CheckpointInfo.prototype = {};
 CheckpointInfo.prototype.read = function(input) {
   input.readStructBegin();
@@ -2575,7 +2683,7 @@ CheckpointInfo.prototype.write = function(output) {
   return;
 };
 
-LogEntry = function(args) {
+function LogEntry(args) {
   this.cluster = null;
   this.log_str = null;
   if (args) {
@@ -2586,7 +2694,11 @@ LogEntry = function(args) {
       this.log_str = args.log_str;
     }
   }
-};
+}
+
+// LogEntry = function(args) {
+//
+// };
 LogEntry.prototype = {};
 LogEntry.prototype.read = function(input) {
   input.readStructBegin();
@@ -2638,7 +2750,7 @@ LogEntry.prototype.write = function(output) {
   return;
 };
 
-version = '3.0.0';
+const version = '3.0.0';
 export {
   DataSet,
 };

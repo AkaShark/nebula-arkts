@@ -3,1229 +3,1278 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 
-import {Thrift} from '@ohos/thrift'
+import { Thrift } from '@ohos/thrift'
 
-import {
-  ExecutionResponse,
-  AuthResponse,
-  VerifyClientVersionResp,
-  VerifyClientVersionReq
-} from './graph_types'
+import { ExecutionResponse, AuthResponse, VerifyClientVersionResp, VerifyClientVersionReq } from './graph_types'
+
 //HELPER FUNCTIONS AND STRUCTURES
 
-GraphService_authenticate_args = function(args) {
-  this.username = null;
-  this.password = null;
-  if (args) {
-    if (args.username !== undefined && args.username !== null) {
-      this.username = args.username;
+function GraphService_authenticate_args(args) {
+    this.username = null;
+    this.password = null;
+    if (args) {
+        if (args.username !== undefined && args.username !== null) {
+            this.username = args.username;
+        }
+        if (args.password !== undefined && args.password !== null) {
+            this.password = args.password;
+        }
     }
-    if (args.password !== undefined && args.password !== null) {
-      this.password = args.password;
-    }
-  }
-};
+}
+
+// GraphService_authenticate_args = function (args) {
+//
+// };
 GraphService_authenticate_args.prototype = {};
-GraphService_authenticate_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_authenticate_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.STRING) {
+                    this.username = input.readString().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 2:
+                if (ftype == Thrift.Type.STRING) {
+                    this.password = input.readString().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.username = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
-        this.password = input.readString().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_authenticate_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_authenticate_args');
-  if (this.username !== null && this.username !== undefined) {
-    output.writeFieldBegin('username', Thrift.Type.STRING, 1);
-    output.writeString(this.username);
-    output.writeFieldEnd();
-  }
-  if (this.password !== null && this.password !== undefined) {
-    output.writeFieldBegin('password', Thrift.Type.STRING, 2);
-    output.writeString(this.password);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_authenticate_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_authenticate_args');
+    if (this.username !== null && this.username !== undefined) {
+        output.writeFieldBegin('username', Thrift.Type.STRING, 1);
+        output.writeString(this.username);
+        output.writeFieldEnd();
+    }
+    if (this.password !== null && this.password !== undefined) {
+        output.writeFieldBegin('password', Thrift.Type.STRING, 2);
+        output.writeString(this.password);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_authenticate_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = new AuthResponse(args.success);
+function GraphService_authenticate_result(args) {
+    this.success = null;
+    if (args) {
+        if (args.success !== undefined && args.success !== null) {
+            this.success = new AuthResponse(args.success);
+        }
     }
-  }
-};
+}
+
+// GraphService_authenticate_result = function (args) {
+//
+// };
 GraphService_authenticate_result.prototype = {};
-GraphService_authenticate_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_authenticate_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 0:
+                if (ftype == Thrift.Type.STRUCT) {
+                    this.success = new AuthResponse();
+                    this.success.read(input);
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new AuthResponse();
-        this.success.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_authenticate_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_authenticate_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_authenticate_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_authenticate_result');
+    if (this.success !== null && this.success !== undefined) {
+        output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+        this.success.write(output);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_signout_args = function(args) {
-  this.sessionId = null;
-  if (args) {
-    if (args.sessionId !== undefined && args.sessionId !== null) {
-      this.sessionId = args.sessionId;
+function GraphService_signout_args(args) {
+    this.sessionId = null;
+    if (args) {
+        if (args.sessionId !== undefined && args.sessionId !== null) {
+            this.sessionId = args.sessionId;
+        }
     }
-  }
-};
+}
+
+// GraphService_signout_args = function (args) {
+//
+// };
 GraphService_signout_args.prototype = {};
-GraphService_signout_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_signout_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.I64) {
+                    this.sessionId = input.readI64().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.I64) {
-        this.sessionId = input.readI64().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_signout_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_signout_args');
-  if (this.sessionId !== null && this.sessionId !== undefined) {
-    output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
-    output.writeI64(this.sessionId);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_signout_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_signout_args');
+    if (this.sessionId !== null && this.sessionId !== undefined) {
+        output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
+        output.writeI64(this.sessionId);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_signout_result = function(args) {
-};
+function GraphService_signout_result(args) {
+
+}
+
+// GraphService_signout_result = function (args) {
+// };
 GraphService_signout_result.prototype = {};
-GraphService_signout_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_signout_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        input.skip(ftype);
+        input.readFieldEnd();
     }
-    input.skip(ftype);
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_signout_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_signout_result');
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_signout_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_signout_result');
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_execute_args = function(args) {
-  this.sessionId = null;
-  this.stmt = null;
-  if (args) {
-    if (args.sessionId !== undefined && args.sessionId !== null) {
-      this.sessionId = args.sessionId;
+function GraphService_execute_args(args) {
+    this.sessionId = null;
+    this.stmt = null;
+    if (args) {
+        if (args.sessionId !== undefined && args.sessionId !== null) {
+            this.sessionId = args.sessionId;
+        }
+        if (args.stmt !== undefined && args.stmt !== null) {
+            this.stmt = args.stmt;
+        }
     }
-    if (args.stmt !== undefined && args.stmt !== null) {
-      this.stmt = args.stmt;
-    }
-  }
-};
+}
+
+// GraphService_execute_args = function (args) {
+//
+// };
 GraphService_execute_args.prototype = {};
-GraphService_execute_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_execute_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.I64) {
+                    this.sessionId = input.readI64().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 2:
+                if (ftype == Thrift.Type.STRING) {
+                    this.stmt = input.readBinary().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.I64) {
-        this.sessionId = input.readI64().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
-        this.stmt = input.readBinary().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_execute_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_execute_args');
-  if (this.sessionId !== null && this.sessionId !== undefined) {
-    output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
-    output.writeI64(this.sessionId);
-    output.writeFieldEnd();
-  }
-  if (this.stmt !== null && this.stmt !== undefined) {
-    output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
-    output.writeBinary(this.stmt);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_execute_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_execute_args');
+    if (this.sessionId !== null && this.sessionId !== undefined) {
+        output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
+        output.writeI64(this.sessionId);
+        output.writeFieldEnd();
+    }
+    if (this.stmt !== null && this.stmt !== undefined) {
+        output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
+        output.writeBinary(this.stmt);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_execute_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = new ExecutionResponse(args.success);
+function GraphService_execute_result(args) {
+    this.success = null;
+    if (args) {
+        if (args.success !== undefined && args.success !== null) {
+            this.success = new ExecutionResponse(args.success);
+        }
     }
-  }
-};
+}
+
+// GraphService_execute_result = function (args) {
+//
+// };
 GraphService_execute_result.prototype = {};
-GraphService_execute_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_execute_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 0:
+                if (ftype == Thrift.Type.STRUCT) {
+                    this.success = new ExecutionResponse();
+                    this.success.read(input);
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new ExecutionResponse();
-        this.success.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_execute_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_execute_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_execute_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_execute_result');
+    if (this.success !== null && this.success !== undefined) {
+        output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+        this.success.write(output);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_executeWithParameter_args = function(args) {
-  this.sessionId = null;
-  this.stmt = null;
-  this.parameterMap = null;
-  if (args) {
-    if (args.sessionId !== undefined && args.sessionId !== null) {
-      this.sessionId = args.sessionId;
+function GraphService_executeWithParameter_args(args) {
+    this.sessionId = null;
+    this.stmt = null;
+    this.parameterMap = null;
+    if (args) {
+        if (args.sessionId !== undefined && args.sessionId !== null) {
+            this.sessionId = args.sessionId;
+        }
+        if (args.stmt !== undefined && args.stmt !== null) {
+            this.stmt = args.stmt;
+        }
+        if (args.parameterMap !== undefined && args.parameterMap !== null) {
+            this.parameterMap = Thrift.copyMap(args.parameterMap, [Value]);
+        }
     }
-    if (args.stmt !== undefined && args.stmt !== null) {
-      this.stmt = args.stmt;
-    }
-    if (args.parameterMap !== undefined && args.parameterMap !== null) {
-      this.parameterMap = Thrift.copyMap(args.parameterMap, [Value]);
-    }
-  }
-};
+}
+
+// GraphService_executeWithParameter_args = function (args) {
+//
+// };
 GraphService_executeWithParameter_args.prototype = {};
-GraphService_executeWithParameter_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.I64) {
-        this.sessionId = input.readI64().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
-        this.stmt = input.readBinary().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.MAP) {
-        this.parameterMap = {};
-        var _rtmp335 = input.readMapBegin();
-        var _size34 = _rtmp335.size || 0;
-        for (var _i36 = 0; _i36 < _size34; ++_i36) {
-          if (_i36 > 0 ) {
-            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
-              input.rstack.pop();
-            }
-          }
-          var key37 = null;
-          var val38 = null;
-          key37 = input.readString().value;
-          val38 = new Value();
-          val38.read(input);
-          this.parameterMap[key37] = val38;
+GraphService_executeWithParameter_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
         }
-        input.readMapEnd();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.I64) {
+                    this.sessionId = input.readI64().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 2:
+                if (ftype == Thrift.Type.STRING) {
+                    this.stmt = input.readBinary().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 3:
+                if (ftype == Thrift.Type.MAP) {
+                    this.parameterMap = {};
+                    var _rtmp335 = input.readMapBegin();
+                    var _size34 = _rtmp335.size || 0;
+                    for (var _i36 = 0; _i36 < _size34; ++_i36) {
+                        if (_i36 > 0) {
+                            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+                                input.rstack.pop();
+                            }
+                        }
+                        var key37 = null;
+                        var val38 = null;
+                        key37 = input.readString().value;
+                        val38 = new Value();
+                        val38.read(input);
+                        this.parameterMap[key37] = val38;
+                    }
+                    input.readMapEnd();
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_executeWithParameter_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_executeWithParameter_args');
-  if (this.sessionId !== null && this.sessionId !== undefined) {
-    output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
-    output.writeI64(this.sessionId);
-    output.writeFieldEnd();
-  }
-  if (this.stmt !== null && this.stmt !== undefined) {
-    output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
-    output.writeBinary(this.stmt);
-    output.writeFieldEnd();
-  }
-  if (this.parameterMap !== null && this.parameterMap !== undefined) {
-    output.writeFieldBegin('parameterMap', Thrift.Type.MAP, 3);
-    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.parameterMap));
-    for (var kiter39 in this.parameterMap) {
-      if (this.parameterMap.hasOwnProperty(kiter39)) {
-        var viter40 = this.parameterMap[kiter39];
-        output.writeString(kiter39);
-        viter40.write(output);
-      }
+GraphService_executeWithParameter_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_executeWithParameter_args');
+    if (this.sessionId !== null && this.sessionId !== undefined) {
+        output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
+        output.writeI64(this.sessionId);
+        output.writeFieldEnd();
     }
-    output.writeMapEnd();
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+    if (this.stmt !== null && this.stmt !== undefined) {
+        output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
+        output.writeBinary(this.stmt);
+        output.writeFieldEnd();
+    }
+    if (this.parameterMap !== null && this.parameterMap !== undefined) {
+        output.writeFieldBegin('parameterMap', Thrift.Type.MAP, 3);
+        output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.parameterMap));
+        for (var kiter39 in this.parameterMap) {
+            if (this.parameterMap.hasOwnProperty(kiter39)) {
+                var viter40 = this.parameterMap[kiter39];
+                output.writeString(kiter39);
+                viter40.write(output);
+            }
+        }
+        output.writeMapEnd();
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_executeWithParameter_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = new ExecutionResponse(args.success);
+function GraphService_executeWithParameter_result(args) {
+    this.success = null;
+    if (args) {
+        if (args.success !== undefined && args.success !== null) {
+            this.success = new ExecutionResponse(args.success);
+        }
     }
-  }
-};
+}
+
+// GraphService_executeWithParameter_result = function (args) {
+//
+// };
 GraphService_executeWithParameter_result.prototype = {};
-GraphService_executeWithParameter_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new ExecutionResponse();
-        this.success.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-GraphService_executeWithParameter_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_executeWithParameter_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-GraphService_executeJson_args = function(args) {
-  this.sessionId = null;
-  this.stmt = null;
-  if (args) {
-    if (args.sessionId !== undefined && args.sessionId !== null) {
-      this.sessionId = args.sessionId;
-    }
-    if (args.stmt !== undefined && args.stmt !== null) {
-      this.stmt = args.stmt;
-    }
-  }
-};
-GraphService_executeJson_args.prototype = {};
-GraphService_executeJson_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.I64) {
-        this.sessionId = input.readI64().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
-        this.stmt = input.readBinary().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-GraphService_executeJson_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_executeJson_args');
-  if (this.sessionId !== null && this.sessionId !== undefined) {
-    output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
-    output.writeI64(this.sessionId);
-    output.writeFieldEnd();
-  }
-  if (this.stmt !== null && this.stmt !== undefined) {
-    output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
-    output.writeBinary(this.stmt);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-GraphService_executeJson_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = args.success;
-    }
-  }
-};
-GraphService_executeJson_result.prototype = {};
-GraphService_executeJson_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.STRING) {
-        this.success = input.readBinary().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-GraphService_executeJson_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_executeJson_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
-    output.writeBinary(this.success);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-GraphService_executeJsonWithParameter_args = function(args) {
-  this.sessionId = null;
-  this.stmt = null;
-  this.parameterMap = null;
-  if (args) {
-    if (args.sessionId !== undefined && args.sessionId !== null) {
-      this.sessionId = args.sessionId;
-    }
-    if (args.stmt !== undefined && args.stmt !== null) {
-      this.stmt = args.stmt;
-    }
-    if (args.parameterMap !== undefined && args.parameterMap !== null) {
-      this.parameterMap = Thrift.copyMap(args.parameterMap, [Value]);
-    }
-  }
-};
-GraphService_executeJsonWithParameter_args.prototype = {};
-GraphService_executeJsonWithParameter_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.I64) {
-        this.sessionId = input.readI64().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.STRING) {
-        this.stmt = input.readBinary().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.MAP) {
-        this.parameterMap = {};
-        var _rtmp342 = input.readMapBegin();
-        var _size41 = _rtmp342.size || 0;
-        for (var _i43 = 0; _i43 < _size41; ++_i43) {
-          if (_i43 > 0 ) {
-            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
-              input.rstack.pop();
-            }
-          }
-          var key44 = null;
-          var val45 = null;
-          key44 = input.readBinary().value;
-          val45 = new Value();
-          val45.read(input);
-          this.parameterMap[key44] = val45;
+GraphService_executeWithParameter_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
         }
-        input.readMapEnd();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
+        switch (fid) {
+            case 0:
+                if (ftype == Thrift.Type.STRUCT) {
+                    this.success = new ExecutionResponse();
+                    this.success.read(input);
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_executeJsonWithParameter_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_executeJsonWithParameter_args');
-  if (this.sessionId !== null && this.sessionId !== undefined) {
-    output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
-    output.writeI64(this.sessionId);
-    output.writeFieldEnd();
-  }
-  if (this.stmt !== null && this.stmt !== undefined) {
-    output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
-    output.writeBinary(this.stmt);
-    output.writeFieldEnd();
-  }
-  if (this.parameterMap !== null && this.parameterMap !== undefined) {
-    output.writeFieldBegin('parameterMap', Thrift.Type.MAP, 3);
-    output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.parameterMap));
-    for (var kiter46 in this.parameterMap) {
-      if (this.parameterMap.hasOwnProperty(kiter46)) {
-        var viter47 = this.parameterMap[kiter46];
-        output.writeBinary(kiter46);
-        viter47.write(output);
-      }
+GraphService_executeWithParameter_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_executeWithParameter_result');
+    if (this.success !== null && this.success !== undefined) {
+        output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+        this.success.write(output);
+        output.writeFieldEnd();
     }
-    output.writeMapEnd();
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_executeJsonWithParameter_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = args.success;
+function GraphService_executeJson_args(args) {
+    this.sessionId = null;
+    this.stmt = null;
+    if (args) {
+        if (args.sessionId !== undefined && args.sessionId !== null) {
+            this.sessionId = args.sessionId;
+        }
+        if (args.stmt !== undefined && args.stmt !== null) {
+            this.stmt = args.stmt;
+        }
     }
-  }
+}
+
+// GraphService_executeJson_args = function (args) {
+//
+// };
+GraphService_executeJson_args.prototype = {};
+GraphService_executeJson_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.I64) {
+                    this.sessionId = input.readI64().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 2:
+                if (ftype == Thrift.Type.STRING) {
+                    this.stmt = input.readBinary().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
 };
+
+GraphService_executeJson_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_executeJson_args');
+    if (this.sessionId !== null && this.sessionId !== undefined) {
+        output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
+        output.writeI64(this.sessionId);
+        output.writeFieldEnd();
+    }
+    if (this.stmt !== null && this.stmt !== undefined) {
+        output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
+        output.writeBinary(this.stmt);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+};
+
+function GraphService_executeJson_result(args) {
+    this.success = null;
+    if (args) {
+        if (args.success !== undefined && args.success !== null) {
+            this.success = args.success;
+        }
+    }
+}
+
+// GraphService_executeJson_result = function (args) {
+//
+// };
+GraphService_executeJson_result.prototype = {};
+GraphService_executeJson_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 0:
+                if (ftype == Thrift.Type.STRING) {
+                    this.success = input.readBinary().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+};
+
+GraphService_executeJson_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_executeJson_result');
+    if (this.success !== null && this.success !== undefined) {
+        output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+        output.writeBinary(this.success);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+};
+
+function GraphService_executeJsonWithParameter_args(args) {
+    this.sessionId = null;
+    this.stmt = null;
+    this.parameterMap = null;
+    if (args) {
+        if (args.sessionId !== undefined && args.sessionId !== null) {
+            this.sessionId = args.sessionId;
+        }
+        if (args.stmt !== undefined && args.stmt !== null) {
+            this.stmt = args.stmt;
+        }
+        if (args.parameterMap !== undefined && args.parameterMap !== null) {
+            this.parameterMap = Thrift.copyMap(args.parameterMap, [Value]);
+        }
+    }
+}
+
+// GraphService_executeJsonWithParameter_args = function (args) {
+//
+// };
+GraphService_executeJsonWithParameter_args.prototype = {};
+GraphService_executeJsonWithParameter_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.I64) {
+                    this.sessionId = input.readI64().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 2:
+                if (ftype == Thrift.Type.STRING) {
+                    this.stmt = input.readBinary().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 3:
+                if (ftype == Thrift.Type.MAP) {
+                    this.parameterMap = {};
+                    var _rtmp342 = input.readMapBegin();
+                    var _size41 = _rtmp342.size || 0;
+                    for (var _i43 = 0; _i43 < _size41; ++_i43) {
+                        if (_i43 > 0) {
+                            if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
+                                input.rstack.pop();
+                            }
+                        }
+                        var key44 = null;
+                        var val45 = null;
+                        key44 = input.readBinary().value;
+                        val45 = new Value();
+                        val45.read(input);
+                        this.parameterMap[key44] = val45;
+                    }
+                    input.readMapEnd();
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+};
+
+GraphService_executeJsonWithParameter_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_executeJsonWithParameter_args');
+    if (this.sessionId !== null && this.sessionId !== undefined) {
+        output.writeFieldBegin('sessionId', Thrift.Type.I64, 1);
+        output.writeI64(this.sessionId);
+        output.writeFieldEnd();
+    }
+    if (this.stmt !== null && this.stmt !== undefined) {
+        output.writeFieldBegin('stmt', Thrift.Type.STRING, 2);
+        output.writeBinary(this.stmt);
+        output.writeFieldEnd();
+    }
+    if (this.parameterMap !== null && this.parameterMap !== undefined) {
+        output.writeFieldBegin('parameterMap', Thrift.Type.MAP, 3);
+        output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.parameterMap));
+        for (var kiter46 in this.parameterMap) {
+            if (this.parameterMap.hasOwnProperty(kiter46)) {
+                var viter47 = this.parameterMap[kiter46];
+                output.writeBinary(kiter46);
+                viter47.write(output);
+            }
+        }
+        output.writeMapEnd();
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+};
+
+function GraphService_executeJsonWithParameter_result(args) {
+    this.success = null;
+    if (args) {
+        if (args.success !== undefined && args.success !== null) {
+            this.success = args.success;
+        }
+    }
+}
+
+// GraphService_executeJsonWithParameter_result = function (args) {
+//
+// };
 GraphService_executeJsonWithParameter_result.prototype = {};
-GraphService_executeJsonWithParameter_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_executeJsonWithParameter_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 0:
+                if (ftype == Thrift.Type.STRING) {
+                    this.success = input.readBinary().value;
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.STRING) {
-        this.success = input.readBinary().value;
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_executeJsonWithParameter_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_executeJsonWithParameter_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
-    output.writeBinary(this.success);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_executeJsonWithParameter_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_executeJsonWithParameter_result');
+    if (this.success !== null && this.success !== undefined) {
+        output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+        output.writeBinary(this.success);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_verifyClientVersion_args = function(args) {
-  this.req = null;
-  if (args) {
-    if (args.req !== undefined && args.req !== null) {
-      this.req = new VerifyClientVersionReq(args.req);
+function GraphService_verifyClientVersion_args(args) {
+    this.req = null;
+    if (args) {
+        if (args.req !== undefined && args.req !== null) {
+            this.req = new VerifyClientVersionReq(args.req);
+        }
     }
-  }
-};
+}
+
+// GraphService_verifyClientVersion_args = function (args) {
+//
+// };
 GraphService_verifyClientVersion_args.prototype = {};
-GraphService_verifyClientVersion_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_verifyClientVersion_args.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 1:
+                if (ftype == Thrift.Type.STRUCT) {
+                    this.req = new VerifyClientVersionReq();
+                    this.req.read(input);
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.req = new VerifyClientVersionReq();
-        this.req.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_verifyClientVersion_args.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_verifyClientVersion_args');
-  if (this.req !== null && this.req !== undefined) {
-    output.writeFieldBegin('req', Thrift.Type.STRUCT, 1);
-    this.req.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_verifyClientVersion_args.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_verifyClientVersion_args');
+    if (this.req !== null && this.req !== undefined) {
+        output.writeFieldBegin('req', Thrift.Type.STRUCT, 1);
+        this.req.write(output);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphService_verifyClientVersion_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = new VerifyClientVersionResp(args.success);
+function GraphService_verifyClientVersion_result(args) {
+    this.success = null;
+    if (args) {
+        if (args.success !== undefined && args.success !== null) {
+            this.success = new VerifyClientVersionResp(args.success);
+        }
     }
-  }
-};
+}
+
+// GraphService_verifyClientVersion_result = function (args) {
+//
+// };
 GraphService_verifyClientVersion_result.prototype = {};
-GraphService_verifyClientVersion_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
+GraphService_verifyClientVersion_result.prototype.read = function (input) {
+    input.readStructBegin();
+    while (true) {
+        var ret = input.readFieldBegin();
+        var ftype = ret.ftype;
+        var fid = ret.fid;
+        if (ftype == Thrift.Type.STOP) {
+            break;
+        }
+        switch (fid) {
+            case 0:
+                if (ftype == Thrift.Type.STRUCT) {
+                    this.success = new VerifyClientVersionResp();
+                    this.success.read(input);
+                } else {
+                    input.skip(ftype);
+                }
+                break;
+            case 0:
+                input.skip(ftype);
+                break;
+            default:
+                input.skip(ftype);
+        }
+        input.readFieldEnd();
     }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new VerifyClientVersionResp();
-        this.success.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
+    input.readStructEnd();
+    return;
 };
 
-GraphService_verifyClientVersion_result.prototype.write = function(output) {
-  output.writeStructBegin('GraphService_verifyClientVersion_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
+GraphService_verifyClientVersion_result.prototype.write = function (output) {
+    output.writeStructBegin('GraphService_verifyClientVersion_result');
+    if (this.success !== null && this.success !== undefined) {
+        output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+        this.success.write(output);
+        output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
 };
 
-GraphServiceClient = function(input, output) {
-  this.input = input;
-  this.output = (!output) ? input : output;
-  this.seqid = 0;
-};
+function GraphServiceClient(input, output) {
+    this.input = input;
+    this.output = (!output) ? input : output;
+    this.seqid = 0;
+}
+
+// GraphServiceClient = function(input, output) {
+
+// };
 GraphServiceClient.prototype = {};
 
-GraphServiceClient.prototype.authenticate = function(username, password, callback) {
-  this.send_authenticate(username, password, callback); 
-  if (!callback) {
-    return this.recv_authenticate();
-  }
+GraphServiceClient.prototype.authenticate = function (username, password, callback) {
+    this.send_authenticate(username, password, callback);
+    if (!callback) {
+        return this.recv_authenticate();
+    }
 };
 
-GraphServiceClient.prototype.send_authenticate = function(username, password, callback) {
-  var params = {
-    username: username,
-    password: password
-  };
-  var args = new GraphService_authenticate_args(params);
-  try {
-    this.output.writeMessageBegin('authenticate', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_authenticate();
-        } catch (e) {
-          result = e;
+GraphServiceClient.prototype.send_authenticate = function (username, password, callback) {
+    var params = {
+        username: username,
+        password: password
+    };
+    var args = new GraphService_authenticate_args(params);
+    try {
+        this.output.writeMessageBegin('authenticate', Thrift.MessageType.CALL, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            var self = this;
+            this.output.getTransport().flush(true, function () {
+                var result = null;
+                try {
+                    result = self.recv_authenticate();
+                } catch (e) {
+                    result = e;
+                }
+                callback(result);
+            });
+        } else {
+            return this.output.getTransport().flush();
         }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
-    }
-    throw e;
-  }
-};
-
-GraphServiceClient.prototype.recv_authenticate = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new GraphService_authenticate_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
-
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'authenticate failed: unknown result';
-};
-
-GraphServiceClient.prototype.signout = function(sessionId, callback) {
-  this.send_signout(sessionId, callback); 
-};
-
-GraphServiceClient.prototype.send_signout = function(sessionId, callback) {
-  var params = {
-    sessionId: sessionId
-  };
-  var args = new GraphService_signout_args(params);
-  try {
-    this.output.writeMessageBegin('signout', Thrift.MessageType.ONEWAY, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      this.output.getTransport().flush(true, null);
-      callback();
-    } else {
-      return this.output.getTransport().flush();
-    }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
-    }
-    throw e;
-  }
-};
-
-GraphServiceClient.prototype.execute = function(sessionId, stmt, callback) {
-  this.send_execute(sessionId, stmt, callback); 
-  if (!callback) {
-    return this.recv_execute();
-  }
-};
-
-GraphServiceClient.prototype.send_execute = function(sessionId, stmt, callback) {
-  var params = {
-    sessionId: sessionId,
-    stmt: stmt
-  };
-  var args = new GraphService_execute_args(params);
-  try {
-    this.output.writeMessageBegin('execute', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_execute();
-        } catch (e) {
-          result = e;
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
         }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
+        throw e;
     }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
-    }
-    throw e;
-  }
 };
 
-GraphServiceClient.prototype.recv_execute = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
+GraphServiceClient.prototype.recv_authenticate = function () {
+    var ret = this.input.readMessageBegin();
+    var mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+        var x = new Thrift.TApplicationException();
+        x.read(this.input);
+        this.input.readMessageEnd();
+        throw x;
+    }
+    var result = new GraphService_authenticate_result();
+    result.read(this.input);
     this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new GraphService_execute_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
 
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'execute failed: unknown result';
+    if (null !== result.success) {
+        return result.success;
+    }
+    throw 'authenticate failed: unknown result';
 };
 
-GraphServiceClient.prototype.executeWithParameter = function(sessionId, stmt, parameterMap, callback) {
-  this.send_executeWithParameter(sessionId, stmt, parameterMap, callback); 
-  if (!callback) {
-    return this.recv_executeWithParameter();
-  }
+GraphServiceClient.prototype.signout = function (sessionId, callback) {
+    this.send_signout(sessionId, callback);
 };
 
-GraphServiceClient.prototype.send_executeWithParameter = function(sessionId, stmt, parameterMap, callback) {
-  var params = {
-    sessionId: sessionId,
-    stmt: stmt,
-    parameterMap: parameterMap
-  };
-  var args = new GraphService_executeWithParameter_args(params);
-  try {
-    this.output.writeMessageBegin('executeWithParameter', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_executeWithParameter();
-        } catch (e) {
-          result = e;
+GraphServiceClient.prototype.send_signout = function (sessionId, callback) {
+    var params = {
+        sessionId: sessionId
+    };
+    var args = new GraphService_signout_args(params);
+    try {
+        this.output.writeMessageBegin('signout', Thrift.MessageType.ONEWAY, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            this.output.getTransport().flush(true, null);
+            callback();
+        } else {
+            return this.output.getTransport().flush();
         }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
-    }
-    throw e;
-  }
-};
-
-GraphServiceClient.prototype.recv_executeWithParameter = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new GraphService_executeWithParameter_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
-
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'executeWithParameter failed: unknown result';
-};
-
-GraphServiceClient.prototype.executeJson = function(sessionId, stmt, callback) {
-  this.send_executeJson(sessionId, stmt, callback); 
-  if (!callback) {
-    return this.recv_executeJson();
-  }
-};
-
-GraphServiceClient.prototype.send_executeJson = function(sessionId, stmt, callback) {
-  var params = {
-    sessionId: sessionId,
-    stmt: stmt
-  };
-  var args = new GraphService_executeJson_args(params);
-  try {
-    this.output.writeMessageBegin('executeJson', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_executeJson();
-        } catch (e) {
-          result = e;
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
         }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
+        throw e;
     }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
+};
+
+GraphServiceClient.prototype.execute = function (sessionId, stmt, callback) {
+    this.send_execute(sessionId, stmt, callback);
+    if (!callback) {
+        return this.recv_execute();
     }
-    throw e;
-  }
 };
 
-GraphServiceClient.prototype.recv_executeJson = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new GraphService_executeJson_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
-
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'executeJson failed: unknown result';
-};
-
-GraphServiceClient.prototype.executeJsonWithParameter = function(sessionId, stmt, parameterMap, callback) {
-  this.send_executeJsonWithParameter(sessionId, stmt, parameterMap, callback); 
-  if (!callback) {
-    return this.recv_executeJsonWithParameter();
-  }
-};
-
-GraphServiceClient.prototype.send_executeJsonWithParameter = function(sessionId, stmt, parameterMap, callback) {
-  var params = {
-    sessionId: sessionId,
-    stmt: stmt,
-    parameterMap: parameterMap
-  };
-  var args = new GraphService_executeJsonWithParameter_args(params);
-  try {
-    this.output.writeMessageBegin('executeJsonWithParameter', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_executeJsonWithParameter();
-        } catch (e) {
-          result = e;
+GraphServiceClient.prototype.send_execute = function (sessionId, stmt, callback) {
+    var params = {
+        sessionId: sessionId,
+        stmt: stmt
+    };
+    var args = new GraphService_execute_args(params);
+    try {
+        this.output.writeMessageBegin('execute', Thrift.MessageType.CALL, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            var self = this;
+            this.output.getTransport().flush(true, function () {
+                var result = null;
+                try {
+                    result = self.recv_execute();
+                } catch (e) {
+                    result = e;
+                }
+                callback(result);
+            });
+        } else {
+            return this.output.getTransport().flush();
         }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
-    }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
-    }
-    throw e;
-  }
-};
-
-GraphServiceClient.prototype.recv_executeJsonWithParameter = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
-    this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new GraphService_executeJsonWithParameter_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
-
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'executeJsonWithParameter failed: unknown result';
-};
-
-GraphServiceClient.prototype.verifyClientVersion = function(req, callback) {
-  this.send_verifyClientVersion(req, callback); 
-  if (!callback) {
-    return this.recv_verifyClientVersion();
-  }
-};
-
-GraphServiceClient.prototype.send_verifyClientVersion = function(req, callback) {
-  var params = {
-    req: req
-  };
-  var args = new GraphService_verifyClientVersion_args(params);
-  try {
-    this.output.writeMessageBegin('verifyClientVersion', Thrift.MessageType.CALL, this.seqid);
-    args.write(this.output);
-    this.output.writeMessageEnd();
-    if (callback) {
-      var self = this;
-      this.output.getTransport().flush(true, function() {
-        var result = null;
-        try {
-          result = self.recv_verifyClientVersion();
-        } catch (e) {
-          result = e;
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
         }
-        callback(result);
-      });
-    } else {
-      return this.output.getTransport().flush();
+        throw e;
     }
-  }
-  catch (e) {
-    if (typeof this.output.getTransport().reset === 'function') {
-      this.output.getTransport().reset();
-    }
-    throw e;
-  }
 };
 
-GraphServiceClient.prototype.recv_verifyClientVersion = function() {
-  var ret = this.input.readMessageBegin();
-  var mtype = ret.mtype;
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(this.input);
+GraphServiceClient.prototype.recv_execute = function () {
+    var ret = this.input.readMessageBegin();
+    var mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+        var x = new Thrift.TApplicationException();
+        x.read(this.input);
+        this.input.readMessageEnd();
+        throw x;
+    }
+    var result = new GraphService_execute_result();
+    result.read(this.input);
     this.input.readMessageEnd();
-    throw x;
-  }
-  var result = new GraphService_verifyClientVersion_result();
-  result.read(this.input);
-  this.input.readMessageEnd();
 
-  if (null !== result.success) {
-    return result.success;
-  }
-  throw 'verifyClientVersion failed: unknown result';
+    if (null !== result.success) {
+        return result.success;
+    }
+    throw 'execute failed: unknown result';
+};
+
+GraphServiceClient.prototype.executeWithParameter = function (sessionId, stmt, parameterMap, callback) {
+    this.send_executeWithParameter(sessionId, stmt, parameterMap, callback);
+    if (!callback) {
+        return this.recv_executeWithParameter();
+    }
+};
+
+GraphServiceClient.prototype.send_executeWithParameter = function (sessionId, stmt, parameterMap, callback) {
+    var params = {
+        sessionId: sessionId,
+        stmt: stmt,
+        parameterMap: parameterMap
+    };
+    var args = new GraphService_executeWithParameter_args(params);
+    try {
+        this.output.writeMessageBegin('executeWithParameter', Thrift.MessageType.CALL, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            var self = this;
+            this.output.getTransport().flush(true, function () {
+                var result = null;
+                try {
+                    result = self.recv_executeWithParameter();
+                } catch (e) {
+                    result = e;
+                }
+                callback(result);
+            });
+        } else {
+            return this.output.getTransport().flush();
+        }
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
+        }
+        throw e;
+    }
+};
+
+GraphServiceClient.prototype.recv_executeWithParameter = function () {
+    var ret = this.input.readMessageBegin();
+    var mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+        var x = new Thrift.TApplicationException();
+        x.read(this.input);
+        this.input.readMessageEnd();
+        throw x;
+    }
+    var result = new GraphService_executeWithParameter_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.success) {
+        return result.success;
+    }
+    throw 'executeWithParameter failed: unknown result';
+};
+
+GraphServiceClient.prototype.executeJson = function (sessionId, stmt, callback) {
+    this.send_executeJson(sessionId, stmt, callback);
+    if (!callback) {
+        return this.recv_executeJson();
+    }
+};
+
+GraphServiceClient.prototype.send_executeJson = function (sessionId, stmt, callback) {
+    var params = {
+        sessionId: sessionId,
+        stmt: stmt
+    };
+    var args = new GraphService_executeJson_args(params);
+    try {
+        this.output.writeMessageBegin('executeJson', Thrift.MessageType.CALL, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            var self = this;
+            this.output.getTransport().flush(true, function () {
+                var result = null;
+                try {
+                    result = self.recv_executeJson();
+                } catch (e) {
+                    result = e;
+                }
+                callback(result);
+            });
+        } else {
+            return this.output.getTransport().flush();
+        }
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
+        }
+        throw e;
+    }
+};
+
+GraphServiceClient.prototype.recv_executeJson = function () {
+    var ret = this.input.readMessageBegin();
+    var mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+        var x = new Thrift.TApplicationException();
+        x.read(this.input);
+        this.input.readMessageEnd();
+        throw x;
+    }
+    var result = new GraphService_executeJson_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.success) {
+        return result.success;
+    }
+    throw 'executeJson failed: unknown result';
+};
+
+GraphServiceClient.prototype.executeJsonWithParameter = function (sessionId, stmt, parameterMap, callback) {
+    this.send_executeJsonWithParameter(sessionId, stmt, parameterMap, callback);
+    if (!callback) {
+        return this.recv_executeJsonWithParameter();
+    }
+};
+
+GraphServiceClient.prototype.send_executeJsonWithParameter = function (sessionId, stmt, parameterMap, callback) {
+    var params = {
+        sessionId: sessionId,
+        stmt: stmt,
+        parameterMap: parameterMap
+    };
+    var args = new GraphService_executeJsonWithParameter_args(params);
+    try {
+        this.output.writeMessageBegin('executeJsonWithParameter', Thrift.MessageType.CALL, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            var self = this;
+            this.output.getTransport().flush(true, function () {
+                var result = null;
+                try {
+                    result = self.recv_executeJsonWithParameter();
+                } catch (e) {
+                    result = e;
+                }
+                callback(result);
+            });
+        } else {
+            return this.output.getTransport().flush();
+        }
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
+        }
+        throw e;
+    }
+};
+
+GraphServiceClient.prototype.recv_executeJsonWithParameter = function () {
+    var ret = this.input.readMessageBegin();
+    var mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+        var x = new Thrift.TApplicationException();
+        x.read(this.input);
+        this.input.readMessageEnd();
+        throw x;
+    }
+    var result = new GraphService_executeJsonWithParameter_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.success) {
+        return result.success;
+    }
+    throw 'executeJsonWithParameter failed: unknown result';
+};
+
+GraphServiceClient.prototype.verifyClientVersion = function (req, callback) {
+    this.send_verifyClientVersion(req, callback);
+    if (!callback) {
+        return this.recv_verifyClientVersion();
+    }
+};
+
+GraphServiceClient.prototype.send_verifyClientVersion = function (req, callback) {
+    var params = {
+        req: req
+    };
+    var args = new GraphService_verifyClientVersion_args(params);
+    try {
+        this.output.writeMessageBegin('verifyClientVersion', Thrift.MessageType.CALL, this.seqid);
+        args.write(this.output);
+        this.output.writeMessageEnd();
+        if (callback) {
+            var self = this;
+            this.output.getTransport().flush(true, function () {
+                var result = null;
+                try {
+                    result = self.recv_verifyClientVersion();
+                } catch (e) {
+                    result = e;
+                }
+                callback(result);
+            });
+        } else {
+            return this.output.getTransport().flush();
+        }
+    } catch (e) {
+        if (typeof this.output.getTransport().reset === 'function') {
+            this.output.getTransport().reset();
+        }
+        throw e;
+    }
+};
+
+GraphServiceClient.prototype.recv_verifyClientVersion = function () {
+    var ret = this.input.readMessageBegin();
+    var mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+        var x = new Thrift.TApplicationException();
+        x.read(this.input);
+        this.input.readMessageEnd();
+        throw x;
+    }
+    var result = new GraphService_verifyClientVersion_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.success) {
+        return result.success;
+    }
+    throw 'verifyClientVersion failed: unknown result';
 };
 
 export default GraphServiceClient;
